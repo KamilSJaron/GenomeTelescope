@@ -1,0 +1,15 @@
+Package: GenomeTelescope
+Type: Package
+Title: GenomeScope-based suite of genome models used to versatile exploration of any next generation sequencing dataset with small error rate.
+Version: 0.01
+Date: 2022-02-22
+Author: Kamil S. Jaron <kamiljaron@gmail.com>, Katie Jenike, Michael C. Schatz
+Maintainer: Kamil S. Jaron <kamiljaron@gmail.com>
+Description: Package to fit genome models
+Depends: minpack.lm
+License: APACHE-2
+LazyLoad: yes
+RoxygenNote: 7.1.2
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
