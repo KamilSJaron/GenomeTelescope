@@ -1,3 +1,7 @@
+# This code is a bit modified version of https://github.com/schatzlab/genomescope
+# distribuded by Apache License 2.0
+# see README file for the full reference
+
 #' NUM_ROUNDS - Number of rounds before giving up
 #'
 #' @format intiger
