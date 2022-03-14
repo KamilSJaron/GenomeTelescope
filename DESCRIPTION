@@ -8,8 +8,9 @@ Maintainer: Kamil S. Jaron <kamiljaron@gmail.com>
 Description: Package to fit genome models
 Depends: minpack.lm
 License: APACHE-2
+LazyData: true
 LazyLoad: yes
 RoxygenNote: 7.1.2
-Suggests: 
+Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
