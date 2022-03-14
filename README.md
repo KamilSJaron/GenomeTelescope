@@ -34,7 +34,7 @@ Eventually we will allow to install the package wo devtools, but we regenerate t
    - X0 systems (easish)
    - XY/ZW systems (harder to converge)
    - system agnostic model to est differences in genome sizes (differences in genome sizes between libraries)
-
+- kmer spectra from pooled samples (a sample containing multiple individuals from the same species) 
 
 ## Development notes and thoughts
 
@@ -42,13 +42,13 @@ Eventually we will allow to install the package wo devtools, but we regenerate t
 
 We need to figure out the best way to have a battery of testing k-mer histograms.
 
-For now i created a makefile that can fetch us the data from pre-defined urls. To dl the files, run (expecting `wget` to be installed at you OS)
+For now I created a makefile that can fetch us the data from pre-defined urls. To dl the files, run (expecting `wget` to be installed at you OS)
 
 ```
 make -f misc/download_testing_data.mk
 ```
 
-will download a bunch of kmer histograms in `data` subdirectory (which is in `.gitignore` so you don't have to be worried about accidently commiting them).
+Will download a bunch of kmer histograms in `data` subdirectory (which is in `.gitignore` so you don't have to be worried about accidently commiting them).
 
 Of course, for smarter testing we should figure out how to include this data in the automated tests of the package (or alternativelly we can have a make-based integrative testing, but I would not be a big fan of that).
 
