@@ -48,7 +48,7 @@ For now I created a makefile that can fetch us the data from pre-defined urls. T
 make -f misc/download_testing_data.mk
 ```
 
-Will download a bunch of kmer histograms in `data` subdirectory (which is in `.gitignore` so you don't have to be worried about accidently commiting them).
+Will download a bunch of kmer histograms in `data` subdirectory (which is in `.gitignore` so you don't have to be worried about accidently commiting them). We should also add some of the simulated data to this subdirectory so that we have a simplistic ground truth. 
 
 Of course, for smarter testing we should figure out how to include this data in the automated tests of the package (or alternativelly we can have a make-based integrative testing, but I would not be a big fan of that).
 
