@@ -40,8 +40,8 @@ plot_two_tissue_model <- function(model){
 
   coverage_barplot(y, x)
 
-  disomic_prediction <- predict_2n_peak_nlsLM_2peak_unconditional(model)
-  monosomic_prediction <- predict_1n_peak_nlsLM_2peak_unconditional(model)
+  disomic_prediction <- predict_1n_peak_nlsLM_2peak_two_tissue_model(model)
+  monosomic_prediction <- predict_2n_peak_nlsLM_2peak_two_tissue_model(model)
 
   lines(predict(model, response = T) ~ x, lwd = 3)
   lines(monosomic_prediction ~ x, lwd = 3, col = monoploid_col)

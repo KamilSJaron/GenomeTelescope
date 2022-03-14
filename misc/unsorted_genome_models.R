@@ -52,32 +52,6 @@ nls_2peak_kmer_explicit <- function(x, y, k, estKmercov, estLength, max_iteratio
     return(model2)
 }
 
-nls_2peak_male_X0 <- function(x, y, k, estKmercov, estLength, estR, max_iterations){
-    model2 = NULL
-
-    cat("trying nls_2peak_kmer_X0 standard algorithm\n")
-    # fixed parameters
-    r = estR
-    length = estLength
-
-    try(model2 <- nls(y ~ ((2*(1-(1-r)^k)) * dnbinom(x, size = kmercov   / bias, mu = kmercov) +
-                          ((1-r)^k)        * dnbinom(x, size = kmercov * 2 / bias, mu = kmercov * 2)) * length * fraction_diploid +
-                          dnbinom(x, size = kmercov / bias, mu = kmercov) * length * (1 - fraction_diploid),
-                      start = list(kmercov=estKmercov, bias = 0.5, fraction_diploid=0.9),
-                      control = list(minFactor=1e-12, maxiter=max_iterations)), silent = TRUE)
-
-    return(model2)
-}
-
-predict_disomic_portion_2peak_male_X0 <- function(x, r, k, kmercov, bias, length, fraction_diploid){
-    ((2*(1-(1-r)^k)) * dnbinom(x, size = kmercov   / bias, mu = kmercov) +
-    ((1-r)^k)        * dnbinom(x, size = kmercov * 2 / bias, mu = kmercov * 2)) * length * fraction_diploid
-}
-
-predict_monosomic_portion_2peak_male_X0 <- function(x, r, k, kmercov, bias, length, fraction_diploid){
-    dnbinom(x, size = kmercov / bias, mu = kmercov) * length * (1 - fraction_diploid)
-}
-
 nls_2peak_male_XY <- function(x, y, k, estKmercov, estLength, estR, max_iterations){
     model2 = NULL
 
