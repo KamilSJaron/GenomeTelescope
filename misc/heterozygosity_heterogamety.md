@@ -139,3 +139,42 @@ predict_monomic_portion_2peak_fixed_r <- function(x, k, kmercov, bias, est_lengt
     dnbinom(x, size = kmercov   / bias, mu = kmercov) * heterogameticSize
 }
 ```
+
+### The butterfly
+
+```R
+library(GenomeTelescope)
+
+ilPieNapi1 <- read.table("data/ilPieNapi/ilPieNapi1.k31.hist.txt", col.names = c('cov', 'freq')) # female
+ilPieNapi4 <- read.table("data/ilPieNapi/ilPieNapi4.k31.hist.txt", col.names = c('cov', 'freq')) # male
+
+cov_range_1 <- 6:100
+cov_range_4 <- 15:140
+par(mfrow = c(1, 2))
+coverage_barplot(ilPieNapi1$freq[cov_range_1], ilPieNapi1$cov[cov_range_1])
+coverage_barplot(ilPieNapi4$freq[cov_range_4], ilPieNapi4$cov[cov_range_4])
+
+genomescope(ilPieNapi1, foldername = 'data/ilPieNapi/ilPieNapi1_genomescope', k = 31, readlength = 15000)
+# Model converged het:0.0318 kcov:29.2 err:0.00232 model fit:0.204 len:264909067
+#         d         r   kmercov      bias    length 
+# 4.177e-02 3.176e-02 2.920e+01 2.037e-01 2.311e+08 
+genomescope(ilPieNapi4, foldername = 'data/ilPieNapi/ilPieNapi4_genomescope', k = 31, readlength = 15000)
+# Model converged het:0.0306 kcov:45.5 err:0.0021 model fit:0.385 len:266563352
+#         d         r   kmercov      bias    length 
+# 3.879e-02 3.061e-02 4.547e+01 3.852e-01 2.389e+08 
+
+nlsLM_2peak_heterogametic_model_fixed_r <- function(x, y, estKmercov, estHomogameticLength, estHeterogameticSize, r, k = 31){
+  nlsLM(y ~ ((2*(1-(1-r)^k))  * dnbinom(x, size = kmercov   / bias, mu = kmercov) +
+             ((1-r)^k)        * dnbinom(x, size = kmercov*2 / bias, mu = kmercov*2)) * (homogameticLength - heterogameticSize) +
+                                dnbinom(x, size = kmercov   / bias, mu = kmercov) * heterogameticSize,
+        start = list(kmercov = estKmercov, bias = 0.5, heterogameticSize = estHeterogameticSize, homogameticLength = estHomogameticLength),
+        control = list(minFactor=1e-12, maxiter=40))
+}
+
+x <- ilPieNapi1$cov[cov_range_1]
+y <- ilPieNapi1$freq[cov_range_1]
+
+
+heterogametic_model_fixed_length <- 
+heterogametic_model_variable_length <- nlsLM_2peak_heterogametic_model_fixed_r(x, y, 30, 2.389e8, 1e6, 3.061e-02)
+```
