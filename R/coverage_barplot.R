@@ -10,10 +10,17 @@
 #'
 #' @export
 
-coverage_barplot <- function(bar_heights, bar_positions, font_size = 1, width = 0.5){
+coverage_barplot <- function(bar_heights, bar_positions, xlim = c(0, 0), ylim = c(0, 0), font_size = 1, width = 0.5){
 
+  if (ylim[2] == 0){
+      ylim[2] <- max(bar_heights)
+  }
+  if (xlim[2] == 0){
+      xlim = range(bar_positions)
+  }
+  
   plot(bar_heights, type="n", xlab="Coverage", ylab="Frequency",
-       ylim=c(0, max(bar_heights)), xlim=range(bar_positions),
+       ylim = ylim, xlim= xlim,
        cex.lab=font_size, cex.axis=font_size, cex.main=font_size, cex.sub=font_size)
   for ( i in 1:length(bar_heights)){
     rect(bar_positions[i] - width, 0, bar_positions[i] + width, bar_heights[i], col = 'deepskyblue', border = F)
